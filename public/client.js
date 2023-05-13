@@ -53,22 +53,22 @@ socket.on('updateSensor', msg => {     //lang nghe du lieu tu mqtt
     handlingData(msg);
 });
 
-socket.on('led1', msg => {
+socket.on('led', msg => {
     if (msg === 'on') {
-        document.querySelector('#anh1').src = 'light-on.png';
+        document.querySelector('#anh1').src = './img/den_bat.png';
     }
     if (msg === 'off') {
-        document.querySelector('#anh1').src = 'light-off.png';
+        document.querySelector('#anh1').src = './img/den_tat.png';
     }
-    console.log(`light 1 ${msg}`);
+    console.log(`den ${msg}`);
 });
 
-socket.on('led2', msg => {
+socket.on('cua', msg => {
     if (msg === 'on') {
-        document.querySelector('#anh2').src = 'light-on.png';
+        document.querySelector('#anh2').src = './img/cua_mo.png';
     }
     if (msg === 'off') {
-        document.querySelector('#anh2').src = 'light-off.png';
+        document.querySelector('#anh2').src = './img/cua_dong.png';
     }
-    console.log(`light 2 ${msg}`);
+    console.log(`cua ${msg}`);
 });

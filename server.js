@@ -5,7 +5,8 @@ const http = require('http')
 const server = http.createServer(app)
 const { Server } = require('socket.io')
 const io = new Server(server)
-app.use(express.static('public'));
+app.use(express.static('./public'));
+
 
 const options = {
     port: 8884,
@@ -19,8 +20,8 @@ client.on('connect', () => {
     console.log('MQTT connected!!');
 });
 const sensors = 'sensorData'
-const led1 = 'Led1'
-const led2 = 'Led2'
+const led = 'led'
+const cua = 'cua'
 client.subscribe(sensors, () => {
     client.on('message', (topic, message, packet) => {
         console.log(message.toString());
@@ -33,18 +34,18 @@ io.on('connection', socket => {
 });
 
 io.on('connection', socket => {
-    socket.on('led1', msg => {
-        io.sockets.emit('led1', msg);
-        msg === 'on' && client.publish(led1, msg)
-        msg === 'off' && client.publish(led1, msg)
+    socket.on('led', msg => {
+        io.sockets.emit('led', msg);
+        msg === 'on' && client.publish(led, msg)
+        msg === 'off' && client.publish(led, msg)
     });
-    socket.on('led2', msg => {
-        io.sockets.emit('led2', msg);
-        msg === 'on' && client.publish(led2, msg)
-        msg === 'off' && client.publish(led2, msg)
+    socket.on('cua', msg => {
+        io.sockets.emit('cua', msg);
+        msg === 'on' && client.publish(cua, msg)
+        msg === 'off' && client.publish(cua, msg)
     })
 })
 
-server.listen(3001, () => {
-    console.log('listening on *:3001')
+server.listen(3002, () => {
+    console.log('listening on *:3002')
 })
